@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Enter subnet:"
+read subnet
+
+fping -g $subnet|grep alive > .out.host && clear && cat .out.host|awk '{print $1}'|tr -s '\r\n' ' ' > .out.nmap && nmap -iL .out.nmap -p- > result.txt && cat result.txt && echo -e "\nAll hosts:" && cat .out.host
