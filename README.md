@@ -1,4 +1,4 @@
-# fmap = fping + fmap
+# fmap = fping + nmap
 # Installing
     apt install git fping nmap
     git clone https://github.com/Under-sense/fmap.git
