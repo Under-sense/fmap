@@ -1,6 +1,17 @@
 #!/bin/bash
 
-echo "Enter subnet:"
+echo "Enter subnet: "
 read subnet
 
-fping -g $subnet|grep alive > .out.host && clear && cat .out.host|awk '{print $1}'|tr -s '\r\n' ' ' > .out.nmap && nmap -iL .out.nmap -p- > result.txt && cat result.txt && echo -e "\nAll hosts:" && cat .out.host
+echo "Enter port(example: 22,80 or 22-8000) [all]: "
+read port
+
+echo "Additional arguments for nmap(example: -A -T4): "
+read argv
+
+if [[ port -eq "" ]]; then
+	port="-"
+else
+	port=" $port"
+fi
+fping -g $subnet|grep alive > .out.host && clear && cat .out.host|awk '{print $1}'|tr -s '\r\n' ' ' > .out.nmap && nmap -iL .out.nmap -p$port $argv > result.txt && cat result.txt && echo -e "\nAll hosts:" && cat .out.host
